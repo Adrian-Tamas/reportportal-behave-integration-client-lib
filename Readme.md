@@ -4,6 +4,15 @@ This library is Report Portal connector that allows you to integrate Report Port
 
 Your automation framework will run just as it does now unless you choose to run with Report Portal Integration
 
+# Installation
+
+## Manual
+1. Clone the repository
+2. Enter the folder and run `pip install .`
+
+## Using pip and pypi.org
+TBD
+
 # Sending reports to Report Portal
 
 In order to enable the Report Portal Integration add the  `-D rp_enable=True`:
