@@ -1,10 +1,10 @@
-#Description
+# Description
 
 This library is Report Portal connector that allows you to integrate Report Portal with your Python Behave BDD testing framework
 
 Your automation framework will run just as it does now unless you choose to run with Report Portal Integration
 
-#Sending reports to Report Portal
+# Sending reports to Report Portal
 
 In order to enable the Report Portal Integration add the  `-D rp_enable=True`:
 ```bash
@@ -16,7 +16,7 @@ For step based reporting you need to also add the step based flag `-D step_based
 behave -D rp_enable=True -D step_based=True
 ```
 
-#Integrating the lib in your framework
+# Integrating the lib in your framework
 
 In your environments.py file add the service in each method. For e.g.:
 
