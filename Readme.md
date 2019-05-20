@@ -11,7 +11,9 @@ Your automation framework will run just as it does now unless you choose to run 
 2. Enter the folder and run `pip install .`
 
 ## Using pip and pypi.org
-TBD
+```bash
+pip install reportportal-behave-client
+```
 
 # Sending reports to Report Portal
 
