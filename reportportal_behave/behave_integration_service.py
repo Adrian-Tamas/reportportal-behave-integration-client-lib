@@ -1,6 +1,6 @@
 from mss import mss
 
-from reportportal.reportportal_service import *
+from reportportal_behave.reportportal_service import *
 
 
 class BehaveIntegrationService:
