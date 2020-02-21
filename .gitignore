@@ -1,6 +1,6 @@
 .idea
 .__pycache__
 **/__pycache__/*
- build/
- dist/
- reportportal_behave_client.egg-info/
+/build/
+/dist/
+/reportportal_behave_client.egg-info/
