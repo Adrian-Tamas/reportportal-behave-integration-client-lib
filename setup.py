@@ -1,9 +1,14 @@
+from typing import List
+
 from setuptools import setup, find_packages
 
 from version import __version__
 
 with open("README.md", "r") as fh:
     long_description = fh.read()
+
+with open("requirements.txt", "r") as f:
+    requirements: List[str] = f.readlines()
 
 setup(
     name='reportportal-behave-client',
@@ -23,4 +28,5 @@ setup(
         "Operating System :: OS Independent",
     ],
     url="https://github.com/Adrian-Tamas/reportportal-behave-integration-client-lib",
+    install_requires=requirements
 )
