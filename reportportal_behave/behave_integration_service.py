@@ -62,55 +62,62 @@ class BehaveIntegrationService:
                                          level='ERROR',
                                          item_id=item_id)
 
-    def launch_service(self, tags):
+    def launch_service(self, attributes=None, tags=None):
         """
         Start the service that will communicate results to ReportPortal
+        :param attributes: the attributes to label the launch with
         :param tags: the tags the test execution was triggered with
         :return: the id of the launch required to mark it complete
         """
         if self.rp_enable:
             return self.service.start_launcher(name=self.rp_launch_name,
                                                start_time=timestamp(),
-                                               tags=tags,
-                                               description=self.rp_launch_description)
+                                               description=self.rp_launch_description,
+                                               attributes=attributes,
+                                               tags=tags)
 
-    def before_feature(self, feature):
+    def before_feature(self, feature, attributes=None):
         """
         Log the start of a feature execution
         :param feature: the feature passed from behave
+        :param attributes: the attributes to label the feature with
         :return: the id of the feature execution required to mark it complete
         """
         if self.rp_enable:
             feature_info = Feature(feature)
             return self.service.start_feature_test(name=feature_info.name,
                                                    description=feature_info.description,
+                                                   attributes=attributes,
                                                    tags=feature_info.tags,
                                                    start_time=timestamp(),
                                                    item_type=feature_info.item_type,
                                                    parent_item_id=None)
 
-    def before_scenario(self, scenario, feature_id):
+    def before_scenario(self, scenario, feature_id, attributes=None):
         """
         Log the start of a scenario execution
         :param scenario: the behave scenario
         :param feature_id: the id of the feature execution
+        :param attributes: the attributes to label the scenario with
         :return: the id of te scenario execution required to mark it complete
         """
         if self.rp_enable:
             scenario_info = Scenario(scenario, feature_id=feature_id)
             return self.service.start_scenario_test(name=scenario_info.name,
                                                     description=scenario_info.description,
+                                                    attributes=attributes,
                                                     tags=scenario_info.tags,
                                                     start_time=timestamp(),
                                                     item_type=scenario_info.item_type,
                                                     parent_item_id=scenario_info.feature_id)
 
-    def before_step(self, step, scenario_id):
+    def before_step(self, step, scenario_id, attributes=None):
         """
         Logs the start of a step execution.
         This method is ran only if step_based logging is enabled
         :param step: the behave step
         :param scenario_id: the id of the scenario execution the step belongs to
+        :param attributes: the attributes to label the step with
         :return: the id of the step execution required to mark it complete
         """
         if self.rp_enable and self.step_based:
@@ -120,6 +127,7 @@ class BehaveIntegrationService:
                                                 start_time=timestamp(),
                                                 item_type=step_info.item_type,
                                                 description=step_info.description,
+                                                attributes=attributes,
                                                 parent_item_id=step_info.scenario_id)
 
     def after_step(self, step, step_id):
@@ -206,11 +214,12 @@ class BehaveIntegrationService:
                                                      status=status,
                                                      item_id=scenario_info.scenario_id)
 
-    def after_feature(self, feature, feature_id):
+    def after_feature(self, feature, feature_id, attributes=None):
         """
         Mark the feature as complete and set the status accordingly
         :param feature: the behave feature
-        :param feature_id:  the id of the feature execution in order to mark it complete
+        :param feature_id: the id of the feature execution in order to mark it complete
+        :param attributes: the attributes to label the feature with
         :return: response of the feature completion if available
         """
         if self.rp_enable:
@@ -220,12 +229,13 @@ class BehaveIntegrationService:
                     if 'skip' in scenario.tags:
                         scenario_id = self.service.start_scenario_test(name='Scenario: %s' % scenario.name,
                                                                        description=scenario.description,
+                                                                       attributes=attributes,
                                                                        tags=feature_info.tags,
                                                                        start_time=timestamp(),
                                                                        item_type='SCENARIO',
                                                                        parent_item_id=feature_info.feature_id)
                         self.service.finish_scenario_test(end_time=timestamp(),
-                                                          tatus='SKIPPED',
+                                                          status='SKIPPED',
                                                           item_id=scenario_id)
                 except IndexError:
                     pass
