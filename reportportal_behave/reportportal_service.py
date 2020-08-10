@@ -33,10 +33,11 @@ class IntegrationService:
                                                     token=self.rp_token,
                                                     verify_ssl=verify_ssl)
 
-    def start_launcher(self, name, start_time, description=None, tags=None):
+    def start_launcher(self, name, start_time, description=None, attributes=None, tags=None):
         return self.rp_async_service.start_launch(name=name,
                                                   start_time=start_time,
                                                   description=description,
+                                                  attributes=attributes,
                                                   tags=tags)
 
     def start_feature_test(self, **kwargs):
@@ -70,7 +71,7 @@ class IntegrationService:
     def terminate_service(self):
         self.rp_async_service.terminate()
 
-    def _start_test(self, name, start_time, item_type, description=None, tags=None, parent_item_id=None):
+    def _start_test(self, name, start_time, item_type, description=None, attributes=None, tags=None, parent_item_id=None):
         """
         item_type can be (SUITE, STORY, TEST, SCENARIO, STEP, BEFORE_CLASS,
         BEFORE_GROUPS, BEFORE_METHOD, BEFORE_SUITE, BEFORE_TEST, AFTER_CLASS,
@@ -80,6 +81,7 @@ class IntegrationService:
         """
         return self.rp_async_service.start_test_item(name=name,
                                                      description=description,
+                                                     attributes=attributes,
                                                      tags=tags,
                                                      start_time=start_time,
                                                      item_type=item_type,

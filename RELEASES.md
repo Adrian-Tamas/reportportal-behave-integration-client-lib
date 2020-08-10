@@ -1,3 +1,8 @@
+1.1.0
+=====
+
+Added support for Report Portal `attributes`
+
 1.0.4
 =====
 

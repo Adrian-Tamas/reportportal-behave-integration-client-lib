@@ -4,3 +4,4 @@
 /build/
 /dist/
 /reportportal_behave_client.egg-info/
+.python-version

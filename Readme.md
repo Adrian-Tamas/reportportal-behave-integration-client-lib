@@ -38,6 +38,7 @@ In your environments.py file add the service in each method. For e.g.:
 
 def before_all(context):
     tags = ', '.join([tag for tags in context.config.tags.ands for tag in tags])
+    attributes = context.config.userdata.get('environment', "staging") # Used to label launches in Report Portal
     rp_enable = context.config.userdata.getbool('rp_enable', False)
     step_based = context.config.userdata.getbool('step_based', True)
     context.requested_browser = context.config.userdata.get('browser', "chrome")
@@ -54,7 +55,7 @@ def before_all(context):
                                                                   step_based=step_based,
                                                                   add_screenshot=add_screenshot,
                                                                   verify_ssl=False)
-    context.launch_id = context.behave_integration_service.launch_service(tags=tags)
+    context.launch_id = context.behave_integration_service.launch_service(attributes=attributes, tags=tags)
 
 
 def before_feature(context, feature):
