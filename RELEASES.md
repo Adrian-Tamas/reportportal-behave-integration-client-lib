@@ -1,3 +1,9 @@
+1.1.0
+=====
+
+Added support for Report Portal `attributes`
+Fixed a status reporting issue for skipped tests
+
 1.0.4
 =====
 
