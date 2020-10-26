@@ -1,3 +1,5 @@
+import traceback
+
 from mss import mss
 
 from reportportal_behave.entities.feature import Feature
@@ -146,6 +148,9 @@ class BehaveIntegrationService:
                 self.log_step_error_result(error_msg=f"{step.exception}",
                                            step_name=step_info.name,
                                            item_id=step_info.step_id)
+                self.log_step_error_result(error_msg=u"".join(traceback.format_tb(step.exc_traceback)),
+                                           step_name=step_info.name,
+                                           item_id=step_info.step_id)
                 return self.service.finish_step_test(end_time=timestamp(),
                                                      status='FAILED',
                                                      item_id=step_info.step_id)
@@ -177,6 +182,9 @@ class BehaveIntegrationService:
             if step.status == 'failed':
                 # Logs assertion message with attachment and ERROR level it step was failed.
                 self.log_step_error_result(error_msg=f"{step.exception}",
+                                           step_name=step_info.name,
+                                           item_id=step_info.step_id)
+                self.log_step_error_result(error_msg=u"".join(traceback.format_tb(step.exc_traceback)),
                                            step_name=step_info.name,
                                            item_id=step_info.step_id)
 
